@@ -9,6 +9,36 @@
     
     <style>
         /* --- CSS DESIGN SETTINGS --- */
+        /* Force hide the cursor on absolutely EVERYTHING */
+* {
+    cursor: none !important;
+}
+/* 2. Style the new custom cursor */
+.custom-cursor {
+    position: fixed; /* Keeps it locked to the screen */
+    top: 0;
+    left: 0;
+    width: 20px; /* Size of the circle */
+    height: 20px;
+    background-color: white; /* Base color before the blend mode */
+    border-radius: 50%; /* Makes it perfectly round */
+    z-index: 9999; /* Ensures it stays on top of all other elements */
+    
+    /* Center the circle exactly on the invisible mouse point */
+    transform: translate(-50%, -50%); 
+    
+    /* THE MAGIC: Inverts the color based on the background */
+    mix-blend-mode: difference; 
+    
+    /* CRITICAL: Prevents the circle from blocking you from clicking links */
+    pointer-events: none; 
+}
+/* ADD THIS NEW BLOCK: The styling for when the mouse hits a link */
+.custom-cursor.hovering {
+    width: 30px; /* Makes the circle 2x bigger */
+    height: 30px;
+    background-color: rgb(255, 255, 255); /* Makes it slightly see-through */
+}
         :root {
             --bg-color: #f4f4f4; /* Light grey background */
             --text-color: #111111; /* Near black text */
@@ -113,6 +143,8 @@
 <body>
 
     <!-- --- HTML CONTENT (Change text here!) --- -->
+     <div class="custom-cursor"></div>
+
     <nav>
         <div class="logo">Tushar Das™</div>
         <div class="nav-links">
@@ -138,7 +170,6 @@
             <a href="#" class="project-card" style="background: url('assets/images/image1.png') center/cover;">
                 <div class="card-content">
                     <div class="project-title">Project 1</div>
-                    </div>
                     <div class="project-category">Branding</div>
                 </div>
             </a>
@@ -183,6 +214,26 @@
             <a href="#">LinkedIn</a>
         </div>
     </footer>
+<script>
+    const cursor = document.querySelector('.custom-cursor');
+    // Grab every <a> tag (link) on the website
+    const allLinks = document.querySelectorAll('a'); 
 
+    // 1. Move the circle
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    // 2. Make it grow on hover
+    allLinks.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            cursor.classList.add('hovering'); // Make it big
+        });
+        link.addEventListener('mouseleave', () => {
+            cursor.classList.remove('hovering'); // Shrink it back
+        });
+    });
+</script>
 </body>
 </html>
