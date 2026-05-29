@@ -124,9 +124,10 @@ footer {
     transform: translate(-50%, -50%); 
     pointer-events: none; 
     transition: width 0.2s ease, height 0.2s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
+    
+    /* THE MAGIC LINE: Inverts color based on background */
+    mix-blend-mode: difference; 
+} 
 .custom-cursor.hovering {
     width: 35px; 
     height: 35px;
