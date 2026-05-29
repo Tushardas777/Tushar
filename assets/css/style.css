@@ -217,3 +217,46 @@ footer {
         transform: translateY(0);
     }
 }
+
+/* =========================================
+   7. DARK THEME & TOGGLE BUTTON
+   ========================================= */
+body.dark-theme {
+    --bg-color: #111111; 
+    --text-color: #f4f4f4; 
+    --accent-color: #888888; 
+}
+
+/* Adds a smooth fade only when you click the button */
+body.theme-transition {
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Button Styling */
+#theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    margin-left: 2rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+#theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.4s ease;
+}
+
+/* Playful spin when you hover over the icon */
+#theme-toggle:hover svg {
+    transform: scale(1.15) rotate(15deg);
+}
+
+/* ICON VISIBILITY LOGIC */
+.sun-icon { display: none; } /* Hide sun by default */
+.moon-icon { display: block; } /* Show moon by default */
+
+/* When dark mode is active, flip the icons! */
+body.dark-theme .sun-icon { display: block; }
+body.dark-theme .moon-icon { display: none; }
