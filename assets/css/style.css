@@ -116,8 +116,8 @@ footer {
     position: fixed; 
     top: 0;
     left: 0;
-    width: 20px; 
-    height: 20px;
+    width: 15px; 
+    height: 15px;
     background-color: white; 
     border-radius: 50%; 
     z-index: 9999; 
@@ -131,8 +131,8 @@ footer {
     mix-blend-mode: difference; 
 } 
 .custom-cursor.hovering {
-    width: 35px; 
-    height: 35px;
+    width: 25px; 
+    height: 25px;
     background-color: rgb(255, 255, 255); 
 }
 
@@ -260,3 +260,74 @@ body.theme-transition {
 /* When dark mode is active, flip the icons! */
 body.dark-theme .sun-icon { display: block; }
 body.dark-theme .moon-icon { display: none; }
+
+
+/* =========================================
+   8. MASTER TIMELINE PRELOADER
+   ========================================= */
+#preloader {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: #111111;
+    display: flex; justify-content: center; align-items: center;
+    z-index: 10000;
+    transition: background-color 1.2s cubic-bezier(0.77, 0, 0.175, 1), visibility 1.5s ease;
+}
+
+/* Phase 1: Slide Down in Gray */
+.preloader-text {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(3rem, 8vw, 6rem); 
+    font-weight: 700;
+    color: #333333; /* Dark Gray */
+    white-space: nowrap; margin: 0;
+    
+    /* The Entrance Slide */
+    animation: preloaderFadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes preloaderFadeInDown {
+    0% { opacity: 0; transform: translate(-50%, -70%); }
+    100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* Phase 2: The White Cursor Wipe */
+.preloader-text::before {
+    content: attr(data-text);
+    position: absolute; top: 0; left: 0;
+    width: 0%; /* Starts invisible */
+    height: 100%;
+    color: #f4f4f4; /* Bright White */
+    overflow: hidden;
+    border-right: 4px solid #f4f4f4; /* The Cursor! */
+    white-space: nowrap;
+    transition: width 1s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* JavaScript triggers this to make the cursor swipe */
+.preloader-text.run-wipe::before { width: 100%; }
+
+/* JavaScript triggers this to hide the cursor before the frenzy */
+.preloader-text.hide-cursor::before { border-right-color: transparent; }
+
+/* Phase 4: The Fusion Flight */
+.preloader-text.fuse-text {
+    transition: top 1.2s cubic-bezier(0.77, 0, 0.175, 1), 
+                left 1.2s cubic-bezier(0.77, 0, 0.175, 1), 
+                transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), 
+                opacity 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+    opacity: 0; /* Fades out on impact */
+}
+
+#preloader.fuse-bg { background-color: transparent; pointer-events: none; }
+.preloader-hidden { visibility: hidden !important; }
+
+/* Phase 5: The Frenzy State */
+.preloader-text.start-frenzy {
+    color: #f4f4f4; /* Turns the base text white */
+}
+.preloader-text.start-frenzy::before {
+    display: none; /* Hides the wipe mask during the rapid character changes to prevent lag */
+}
