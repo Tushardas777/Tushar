@@ -47,47 +47,34 @@ if (themeToggle) {
     });
 }
 // ==========================================
-// 6. ULTIMATE GLITCH & FUSION PRELOADER
+// 6. THE SMOOTH MULTI-LANGUAGE FUSION PRELOADER
 // ==========================================
 const preloader = document.getElementById('preloader');
 const preloaderText = document.querySelector('.preloader-text');
 const siteLogo = document.querySelector('.logo'); 
 
-// A curated sequence of high-contrast fonts and languages
+// The International Array
 const ultimateFrenzyFrames = [
-    // --- Phase 1: Heavy European Brutalism (Eng/Spa) ---
-    { text: "TUSHAR DAS", font: "'Unbounded', sans-serif" },      // Brutalist Wide
-    { text: "Tushar Das™", font: "'Syne', sans-serif" },          // Modern Spanish Design
-    { text: "TUSHAR", font: "'Anton', sans-serif" },             // Ultra Heavy Compact
-
-    // --- Phase 2: Authentic Asian Glitch ---
-    { text: "トゥシャル・ダス", font: "'Noto Sans JP', sans-serif" },  // Japanese (Bold)
-    { text: "Tushar Das", font: "'Noto Sans JP', sans-serif" },  // English in Japanese Font
-
-    // --- Phase 3: Luxury Italian/Roman ---
-    { text: "Tushar Das", font: "'Bodoni Moda', serif" },        // High-Fashion Milan
-    { text: "TUSHAR DAS", font: "'Cinzel', serif" },             // Classic Roman
-    { text: "トゥシャル", font: "'Noto Sans JP', sans-serif" },    // Japanese (Short)
-
-    // --- Phase 4: Modern Technical/Space ---
-    { text: "투샤르 다스", font: "'Noto Sans KR', sans-serif" },        // Korean Hangul
-    { text: "Tus.har Das", font: "'Space Grotesk', sans-serif" },  // Tech/Monospace style
-    { text: "TUSHAR", font: "'Bebas Neue', sans-serif" },        // Tall/Condensed Eng
-
-    // --- Phase 5: International Mix ---
-    { text: "トゥシャル・ダス", font: "'Noto Sans JP', sans-serif" },  // Japanese (Full)
-    { text: "투샤르 다스", font: "'Noto Sans KR', sans-serif" },        // Korean (Full)
-    { text: "Tushar Das™", font: "'Unbounded', sans-serif" },      // Back to Wide
-    { text: "투샤르", font: "'Noto Sans KR', sans-serif" },         // Korean (Short)
-    { text: "Tus.har", font: "'Space Grotesk', sans-serif" },     // Tech (Short)
-
-    // --- Phase 6: Approaching Resolution ---
+    { text: "TUSHAR DAS", font: "'Unbounded', sans-serif" },      
+    { text: "Tushar Das™", font: "'Syne', sans-serif" },          
+    { text: "TUSHAR", font: "'Anton', sans-serif" },             
+    { text: "トゥシャル・ダス", font: "'Noto Sans JP', sans-serif" },  
+    { text: "Tushar Das", font: "'Noto Sans JP', sans-serif" },  
+    { text: "Tushar Das", font: "'Bodoni Moda', serif" },        
+    { text: "TUSHAR DAS", font: "'Cinzel', serif" },             
+    { text: "トゥシャル", font: "'Noto Sans JP', sans-serif" },    
+    { text: "투샤르 다스", font: "'Noto Sans KR', sans-serif" },        
+    { text: "Tus.har Das", font: "'Space Grotesk', sans-serif" },  
+    { text: "TUSHAR", font: "'Bebas Neue', sans-serif" },        
+    { text: "トゥシャル・ダス", font: "'Noto Sans JP', sans-serif" },  
+    { text: "투샤르 다스", font: "'Noto Sans KR', sans-serif" },        
+    { text: "Tushar Das™", font: "'Unbounded', sans-serif" },      
+    { text: "투샤르", font: "'Noto Sans KR', sans-serif" },         
+    { text: "Tus.har", font: "'Space Grotesk', sans-serif" },     
     { text: "Tushar Das", font: "'Bodoni Moda', serif" },
     { text: "TUSHAR", font: "'Syne', sans-serif" },
     { text: "Tushar Das™", font: "'Anton', sans-serif" },
     { text: "투샤르", font: "'Noto Sans KR', sans-serif" },
-
-    // The very last frame *before* logic kicks in should be close to base
     { text: "Tushar Das™", font: "'Inter', sans-serif" }
 ];
 
@@ -98,36 +85,36 @@ if (preloader && preloaderText && siteLogo) {
     if (isRefresh || !sessionStorage.getItem('intro-played')) {
         preloader.style.display = 'flex';
         
-        // TIMELINE:
-
-        // A. Gray Slide-Down Entrance (CSS handles this, JS waits 800ms)
+        // 1. Entrance Wait
         setTimeout(() => {
-            // B. Trigger White Cursor Wipe
             preloaderText.classList.add('run-wipe');
             
-            // C. Wait 1000ms for Wipe to finish, then start Glitch
+            // 2. Wipe Wait
             setTimeout(() => {
-                // Prep for rapid character/font changes
                 preloaderText.classList.add('hide-cursor', 'start-frenzy');
                 
                 let flashes = 0;
-                // D. Run rapid loop every 100ms (2 seconds total)
+                
+                // 3. Smooth Frenzy Loop
                 const frenzyTimer = setInterval(() => {
-                    // Pick a random frame from our master list
                     const frame = ultimateFrenzyFrames[Math.floor(Math.random() * ultimateFrenzyFrames.length)];
                     preloaderText.style.fontFamily = frame.font;
-                    preloaderText.textContent = frame.text; // Swaps actual characters
+                    preloaderText.textContent = frame.text; 
                     flashes++;
                     
-                    // E. End Glitch and Start Fusion
-                    if (flashes >= 20) {
+                    // 4. End Glitch and Fly
+                    if (flashes >= 13) {
                         clearInterval(frenzyTimer);
                         
-                        // F. CRITICAL: Force reset to original English text & font for math
+                        // Strip the smooth transition BEFORE math so it doesn't break coordinates
+                        preloaderText.classList.remove('start-frenzy'); 
+                        preloaderText.style.transition = 'none'; 
+                        
+                        // Reset to original English text
                         preloaderText.style.fontFamily = "'Inter', sans-serif";
                         preloaderText.textContent = "Tushar Das™";
                         
-                        // Strip CSS centering for coordinate calculation
+                        // Prep for math
                         const textRect = preloaderText.getBoundingClientRect();
                         preloaderText.style.left = textRect.left + 'px';
                         preloaderText.style.top = textRect.top + 'px';
@@ -135,31 +122,30 @@ if (preloader && preloaderText && siteLogo) {
                         preloaderText.style.animation = 'none'; 
                         preloaderText.style.transformOrigin = 'top left';
                         
-                        // Force recalculation of English dimensions
                         preloaderText.getBoundingClientRect(); 
                         
-                        // Palmer Math (Calculate flight path)
+                        // Do the Math
                         const logoRect = siteLogo.getBoundingClientRect();
                         const moveX = logoRect.left - textRect.left;
                         const moveY = logoRect.top - textRect.top;
                         const scale = logoRect.height / textRect.height;
                         
-                        // G. Launch Fusion Flight (CSS applies flight path/fading)
+                        // Fly to logo
                         preloader.classList.add('fuse-bg');
                         preloaderText.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scale})`;
                         preloaderText.classList.add('fuse-text');
                         
-                        // H. Hide Preloader completely
+                        // Hide completely
                         setTimeout(() => {
                             preloader.classList.add('preloader-hidden');
                             sessionStorage.setItem('intro-played', 'true');
                         }, 1200);
                     }
-                }, 100); 
+                }, 160); 
                 
-            }, 1000); // Wipe wait
+            }, 1000); 
             
-        }, 800); // Entrance wait
+        }, 800); 
 
     } else {
         preloader.style.display = 'none';

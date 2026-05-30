@@ -306,6 +306,21 @@ body.dark-theme .moon-icon { display: none; }
     transition: width 1s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
+/* Phase 3: The Smooth Frenzy State */
+.preloader-text.start-frenzy {
+    color: #f4f4f4; 
+    
+    /* 1. Adds a subtle analog glow to soften the edges */
+    text-shadow: 0 0 15px rgba(244, 244, 244, 0.4); 
+    
+    /* 2. Forces the browser to smoothly glide between font sizes and spacing */
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.preloader-text.start-frenzy::before {
+    display: none; 
+}
+
 /* JavaScript triggers this to make the cursor swipe */
 .preloader-text.run-wipe::before { width: 100%; }
 
@@ -324,10 +339,3 @@ body.dark-theme .moon-icon { display: none; }
 #preloader.fuse-bg { background-color: transparent; pointer-events: none; }
 .preloader-hidden { visibility: hidden !important; }
 
-/* Phase 5: The Frenzy State */
-.preloader-text.start-frenzy {
-    color: #f4f4f4; /* Turns the base text white */
-}
-.preloader-text.start-frenzy::before {
-    display: none; /* Hides the wipe mask during the rapid character changes to prevent lag */
-}
